@@ -52,40 +52,40 @@ Semua endpoint REST memakai header `X-API-Key`.
 
 | Komponen | Cara verifikasi | Bukti |
 |---|---|---|
-| Simulator -> MQTT | Terminal simulator menampilkan `-> Publish: {...}` | ![Simulator](screenshots/01-simulator.png) |
-| MQTT -> Node-RED | Debug panel Node-RED menampilkan data sensor | ![Debug Node-RED](screenshots/02-debug-nodered.png) |
-| Node-RED -> REST | `curl` ke `/api/suhu` mengembalikan JSON | ![API suhu](screenshots/03-api-suhu.png) |
-| REST -> Web | Dashboard menampilkan angka berubah | ![Dashboard](screenshots/04-dashboard.png) |
-| Web -> REST -> MQTT | Klik tombol, simulator menerima perintah | ![Kontrol lampu](screenshots/05-kontrol-lampu.png) |
+| Simulator -> MQTT | Terminal simulator menampilkan `-> Publish: {...}` | ![Simulator](Screenshot/01-simulator.png) |
+| MQTT -> Node-RED | Debug panel Node-RED menampilkan data sensor | ![Debug Node-RED](Screenshot/02-debug-nodered.png) |
+| Node-RED -> REST | `curl` ke `/api/suhu` mengembalikan JSON | ![API suhu](Screenshot/03-api-suhu.png) |
+| REST -> Web | Dashboard menampilkan angka berubah | ![Dashboard](Screenshot/04-dashboard.png) |
+| Web -> REST -> MQTT | Klik tombol, simulator menerima perintah | ![Kontrol lampu](Screenshot/05-kontrol-lampu.png) |
 
 ## Tugas Pengembangan (Nilai Tambah)
 
 ### 1. Endpoint `PUT /api/threshold` dan notifikasi
 Batas suhu disimpan di flow context lewat `PUT /api/threshold`. Setiap data sensor dibandingkan dengan batas tersebut. Jika suhu melewati batas, Node-RED mengirim notifikasi ke topik MQTT `iot/notifikasi`, ke debug panel, dan dashboard menampilkan log `ALERT`.
 
-![Threshold](screenshots/06-threshold-put.png)
-![Notifikasi](screenshots/07-notifikasi.png)
+![Threshold](Screenshot/06-threshold-put.png)
+![Notifikasi](Screenshot/07-notifikasi.png)
 
 ### 2. Grafik real-time Chart.js
 Dashboard menampilkan grafik garis suhu dan kelembaban (20 data terakhir) yang bergerak tiap data baru masuk.
 
-![Grafik](screenshots/08-chartjs.png)
+![Grafik](Screenshot/08-chartjs.png)
 
 ### 3. Autentikasi API key
 Setiap endpoint REST mengecek header `X-API-Key`. Tanpa key atau dengan key salah, server membalas `401`.
 
-![401](screenshots/09-apikey-401.png)
-![200](screenshots/10-apikey-200.png)
+![401](Screenshot/09-apikey-401.png)
+![200](Screenshot/10-apikey-200.png)
 
 ### 4. WebSocket
 Node `websocket out` pada path `/ws/sensor` mengirim data sensor ke dashboard. Dashboard memperbarui angka, tabel, dan grafik tanpa polling, serta menyambung ulang otomatis jika koneksi terputus.
 
-![WebSocket](screenshots/11-websocket.png)
+![WebSocket](Screenshot/11-websocket.png)
 
 ### 5. Penyimpanan history ke SQLite
 Setiap data sensor disimpan ke `iot.db` lewat node SQLite. Endpoint `/api/history` membaca dari database, bukan dari flow context, sehingga data tetap ada setelah Node-RED di-restart.
 
-![SQLite](screenshots/12-sqlite-history.png)
+![SQLite](Screenshot/12-sqlite-history.png)
 
 ## Contoh Perintah curl
 
